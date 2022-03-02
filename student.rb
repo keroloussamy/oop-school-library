@@ -8,7 +8,7 @@ class Student < Person
     @classroom = classroom
   end
 
-  def set_classroom(classroom)
+  def add_classroom(classroom)
     @classroom = classroom
   end
 
