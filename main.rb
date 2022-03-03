@@ -21,6 +21,12 @@ def display_books(books)
   end
 end
 
+def display_people(people)
+  people.each do |person|
+    puts "[#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age:#{person.age}"
+  end
+end
+
 def switch_case(books, people, rentals)
   loop do
     display_list
