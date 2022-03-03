@@ -94,6 +94,18 @@ def display_rental_by_person_id(rentals)
   end
 end
 
+def student_or_teacher(people)
+  puts 'Do you want to create a student (1) or a teacher (2)? [Input a number]: '
+  student_or_teacher = gets.chomp.to_i
+  case student_or_teacher
+  when 1
+    create_student(people)
+  when 2
+    create_teacher(people)
+  end
+end
+
+
 def switch_case(books, people, rentals)
   loop do
     display_list
