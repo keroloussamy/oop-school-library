@@ -86,6 +86,14 @@ def create_rental(books, people, rentals)
   puts 'Rental created successfully.'
 end
 
+def display_rental_by_person_id(rentals)
+  print 'Person ID: '
+  person_id = gets.chomp.to_i
+  rentals.each do |rent|
+    puts "Date: #{rent.date}, Book: #{rent.book.title} by #{rent.book.author}." if rent.person.id == person_id
+  end
+end
+
 def switch_case(books, people, rentals)
   loop do
     display_list
