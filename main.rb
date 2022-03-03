@@ -105,6 +105,24 @@ def student_or_teacher(people)
   end
 end
 
+def switch_options(option, books, people, rentals)
+  case option
+  when 1
+    display_books(books)
+  when 2
+    display_people(people)
+  when 3
+    student_or_teacher(people)
+  when 4
+    create_book(books)
+  when 5
+    create_rental(books, people, rentals)
+  when 6
+    display_rental_by_person_id(rentals)
+  else
+    puts 'Not an option'
+  end
+end
 
 def switch_case(books, people, rentals)
   loop do
