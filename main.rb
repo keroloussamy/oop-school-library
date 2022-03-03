@@ -27,6 +27,24 @@ def display_people(people)
   end
 end
 
+def create_student(people)
+  print 'Age: '
+  age = gets.chomp.to_i
+  print 'Name: '
+  name = gets.chomp
+  print 'Has parent permission? [Y/N]: '
+  permission_input = gets.chomp
+  case permission_input
+  when 'Y'
+    permission = true
+  when 'N'
+    permission = false
+  end
+
+  people.push(Student.new(nil, age, name: name, parent_permission: permission))
+  puts 'Person created successfully.'
+end
+
 def switch_case(books, people, rentals)
   loop do
     display_list
