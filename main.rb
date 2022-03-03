@@ -129,6 +129,7 @@ def switch_case(books, people, rentals)
     display_list
     option = gets.chomp.to_i
     break if option == 7
+
     switch_options(option, books, people, rentals)
   end
 end
