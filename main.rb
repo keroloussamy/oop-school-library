@@ -67,6 +67,25 @@ def create_book(books)
   puts 'Book created successfully.'
 end
 
+def create_rental(books, people, rentals)
+  puts 'Select a book  from the following list by number: '
+  books.each_with_index do |book, index|
+    puts "#{index}) Title: #{book.title}, Author: #{book.author}"
+  end
+  book_index = gets.chomp.to_i
+
+  puts 'Select a person from the following list by number (Not ID): '
+  people.each_with_index do |person, index|
+    puts "#{index}) [#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age:#{person.age}"
+  end
+  people_index = gets.chomp.to_i
+
+  print 'Date: '
+  date = gets.chomp
+  rentals.push(Rental.new(date, people[people_index], books[book_index]))
+  puts 'Rental created successfully.'
+end
+
 def switch_case(books, people, rentals)
   loop do
     display_list
