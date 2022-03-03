@@ -15,6 +15,12 @@ def display_list
     7- Exit"
 end
 
+def display_books(books)
+  books.each do |book|
+    puts "Title: #{book.title}, Author: #{book.author}"
+  end
+end
+
 def switch_case(books, people, rentals)
   loop do
     display_list
