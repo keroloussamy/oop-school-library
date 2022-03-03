@@ -45,6 +45,18 @@ def create_student(people)
   puts 'Person created successfully.'
 end
 
+def create_teacher(people)
+  print 'Age: '
+  age = gets.chomp.to_i
+  print 'Name: '
+  name = gets.chomp
+  print 'specialization: '
+  specialization = gets.chomp
+
+  people.push(Teacher.new(specialization, age, name: name))
+  puts 'Person created successfully.'
+end
+
 def switch_case(books, people, rentals)
   loop do
     display_list
