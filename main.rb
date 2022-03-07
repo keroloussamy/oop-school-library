@@ -1,4 +1,4 @@
-require './switch_cases'
+require_relative 'logic'
 
 def main
   books = []
