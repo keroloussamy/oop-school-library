@@ -1,11 +1,10 @@
-require_relative 'logic'
+require_relative 'app'
 
 def main
-  books = []
-  people = []
-  rentals = []
+ 
   puts 'Welcome to School library App!'
-  switch_case(books, people, rentals)
+  logic = App.new
+  logic.switch_case
 end
 
 main
