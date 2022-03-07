@@ -5,11 +5,13 @@ require './rental'
 
 class App
   attr_accessor :books, :people, :rentals
+
   def initialize
     @books = []
     @people = []
     @rentals = []
   end
+
   def display_list
     puts "
       Please choose an option by entering a number:
@@ -21,19 +23,19 @@ class App
       6- List all rentals for a given person id.
       7- Exit"
   end
-  
+
   def display_books(books)
     books.each do |book|
       puts "Title: #{book.title}, Author: #{book.author}"
     end
   end
-  
+
   def display_people(people)
     people.each do |person|
       puts "[#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age:#{person.age}"
     end
   end
-  
+
   def create_student(people)
     print 'Age: '
     age = gets.chomp.to_i
@@ -47,11 +49,11 @@ class App
     when 'N'
       permission = false
     end
-  
+
     people.push(Student.new(nil, age, name: name, parent_permission: permission))
     puts 'Person created successfully.'
   end
-  
+
   def create_teacher(people)
     print 'Age: '
     age = gets.chomp.to_i
@@ -59,40 +61,40 @@ class App
     name = gets.chomp
     print 'specialization: '
     specialization = gets.chomp
-  
+
     people.push(Teacher.new(specialization, age, name: name))
     puts 'Person created successfully.'
   end
-  
+
   def create_book(books)
     print 'Title: '
     title = gets.chomp
     print 'Author: '
     author = gets.chomp
-  
+
     books.push(Book.new(title, author))
     puts 'Book created successfully.'
   end
-  
+
   def create_rental(books, people, rentals)
     puts 'Select a book  from the following list by number: '
     books.each_with_index do |book, index|
       puts "#{index}) Title: #{book.title}, Author: #{book.author}"
     end
     book_index = gets.chomp.to_i
-  
+
     puts 'Select a person from the following list by number (Not ID): '
     people.each_with_index do |person, index|
       puts "#{index}) [#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age:#{person.age}"
     end
     people_index = gets.chomp.to_i
-  
+
     print 'Date: '
     date = gets.chomp
     rentals.push(Rental.new(date, people[people_index], books[book_index]))
     puts 'Rental created successfully.'
   end
-  
+
   def display_rental_by_person_id(rentals)
     print 'Person ID: '
     person_id = gets.chomp.to_i
@@ -100,7 +102,7 @@ class App
       puts "Date: #{rent.date}, Book: #{rent.book.title} by #{rent.book.author}." if rent.person.id == person_id
     end
   end
-  
+
   def student_or_teacher(people)
     puts 'Do you want to create a student (1) or a teacher (2)? [Input a number]: '
     student_or_teacher = gets.chomp.to_i
@@ -111,7 +113,7 @@ class App
       create_teacher(people)
     end
   end
-  
+
   def switch_options(option)
     case option
     when 1
@@ -130,13 +132,13 @@ class App
       puts 'Not an option'
     end
   end
-  
+
   def switch_case
     loop do
       display_list
       option = gets.chomp.to_i
       break if option == 7
-  
+
       switch_options(option)
     end
   end
