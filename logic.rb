@@ -98,9 +98,9 @@ def student_or_teacher(people)
   puts 'Do you want to create a student (1) or a teacher (2)? [Input a number]: '
   student_or_teacher = gets.chomp.to_i
   case student_or_teacher
-  when 3
+  when 1
     create_student(people)
-  when 4
+  when 2
     create_teacher(people)
   end
 end
