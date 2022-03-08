@@ -12,7 +12,7 @@ class App
   def initialize
     @books = read_books
     @people = read_people
-    @rentals = []
+    @rentals = read_rentals(@books, @people)
   end
 
   def display_list
@@ -139,6 +139,7 @@ class App
   def save_data()
     save_books(@books)
     save_people(@people)
+    save_rentals(@rentals)
   end
 
   def switch_case

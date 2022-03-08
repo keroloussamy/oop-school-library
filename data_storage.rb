@@ -10,7 +10,7 @@ module DataStorage
     data = []
     if File.exist?(file) && File.read(file) != ''
       JSON.parse(File.read(file)).each do |element|
-        data.push(Book.new(element['title'], element['author']))
+        data.push(Book.new(element['title'], element['author'], id: element['id'].to_i))
       end
     end
     data
@@ -19,7 +19,7 @@ module DataStorage
   def save_books(books)
     data = []
     books.each do |book|
-      data.push({ title: book.title, author: book.author })
+      data.push({ id: book.id, title: book.title, author: book.author })
     end
     File.write('books-data.json', JSON.generate(data))
   end
@@ -42,7 +42,6 @@ module DataStorage
   def save_people(people)
     data = []
     people.each do |person|
-      puts person
       if person.instance_of?(Teacher)
         data.push({ id: person.id, age: person.age, name: person.name,
         specialization: person.specialization, data_type: person.class })
@@ -52,5 +51,26 @@ module DataStorage
       end
       File.write('people-data.json', JSON.generate(data))
     end
+  end
+
+  def read_rentals(books, people)
+    file = 'rental-data.json'
+    data = []
+    if File.exist?(file) && File.read(file) != ''
+      JSON.parse(File.read(file)).each do |element|
+        book = books.select { |b| b.id == element['book_id'] }
+        person = people.select { |p| p.id == element['person_id'] }
+        data.push(Rental.new(element['date'], person[0], book[0]))
+      end
+    end
+    data
+  end
+
+  def save_rentals(rentals)
+    data = []
+    rentals.each do |rental|
+        data.push({ date: rental.date, person_id: rental.person.id, book_id: rental.book.id })
+    end
+      File.write('rental-data.json', JSON.generate(data))
   end
 end
