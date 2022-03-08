@@ -29,7 +29,7 @@ module DataStorage
     data = []
     if File.exist?(file) && File.read(file) != ''
       JSON.parse(File.read(file)).each do |element|
-        if element.type == 'teacher'
+        if element['type'] == 'Teacher'
           data.push(Teacher.new(element['specialization'], element['age'].to_i, name: element['name'], id: element['id'].to_i))
         else
           data.push(Student.new(nil, element['age'].to_i, name: element['name'], parent_permission: element['parent_permission'], id: element['id'].to_i))
@@ -42,12 +42,13 @@ module DataStorage
   def save_people(people)
     data = []
     people.each do |person|
+      puts person
       if person.instance_of?(Teacher)
-        data.push({ id: person.id, type: 'teacher', specialization: person.specialization, age: person.age,
-                    name: person.name })
+        data.push({ id: person.id, age: person.age, name: person.name,
+        specialization: person.specialization, data_type: person.class })
       else
-        data.push(id: person.id, type: 'student', age: person.age, name: person.name,
-                  parent_permission: person.parent_permission)
+        data.push({ id: person.id, age: person.age, name: person.name,
+        parent_permission: person.parent_permission, data_type: person.class })
       end
       File.write('people-data.json', JSON.generate(data))
     end
