@@ -27,7 +27,7 @@ module DataStorage
   def read_people
     data = []
     if File.exist?('people-data.json') && File.read('people-data.json') != ''
-      JSON.parse(File.read(file)).each do |element|
+      JSON.parse(File.read('people-data.json')).each do |element|
         if element['type'] == 'Teacher'
           data.push(Teacher.new(element['specialization'], element['age'].to_i, name: element['name'],
                                                                                 id: element['id'].to_i))
