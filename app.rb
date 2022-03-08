@@ -6,11 +6,12 @@ require './data_storage'
 
 class App
   attr_accessor :books, :people, :rentals
+
   include DataStorage
 
   def initialize
     @books = read_books
-    @people = []
+    @people = read_people
     @rentals = []
   end
 
@@ -110,26 +111,26 @@ class App
     student_or_teacher = gets.chomp.to_i
     case student_or_teacher
     when 1
-      create_student(people)
+      create_student()
     when 2
-      create_teacher(people)
+      create_teacher()
     end
   end
 
   def switch_options(option)
     case option
     when 1
-      display_books()
+      display_books
     when 2
-      display_people()
+      display_people
     when 3
-      student_or_teacher()
+      student_or_teacher
     when 4
-      create_book()
+      create_book
     when 5
-      create_rental()
+      create_rental
     when 6
-      display_rental_by_person_id()
+      display_rental_by_person_id
     else
       puts 'Not an option'
     end
@@ -137,6 +138,7 @@ class App
 
   def save_data()
     save_books(@books)
+    save_people(@people)
   end
 
   def switch_case
@@ -144,8 +146,9 @@ class App
       display_list
       option = gets.chomp.to_i
       break if option == 7
+
       switch_options(option)
     end
-    save_data()
+    save_data
   end
 end
