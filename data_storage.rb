@@ -25,14 +25,20 @@ module DataStorage
   end
 
   def read_people
-    file = 'people-data.json'
     data = []
-    if File.exist?(file) && File.read(file) != ''
+    if File.exist?('people-data.json') && File.read('people-data.json') != ''
       JSON.parse(File.read(file)).each do |element|
         if element['type'] == 'Teacher'
-          data.push(Teacher.new(element['specialization'], element['age'].to_i, name: element['name'], id: element['id'].to_i))
+          data.push(Teacher.new(element['specialization'], element['age'].to_i, name: element['name'],
+                                                                                id: element['id'].to_i))
         else
-          data.push(Student.new(nil, element['age'].to_i, name: element['name'], parent_permission: element['parent_permission'], id: element['id'].to_i))
+          data.push(Student.new(
+                      nil,
+                      element['age'].to_i,
+                      name: element['name'],
+                      parent_permission: element['parent_permission'],
+                      id: element['id'].to_i
+                    ))
         end
       end
     end
@@ -44,10 +50,10 @@ module DataStorage
     people.each do |person|
       if person.instance_of?(Teacher)
         data.push({ id: person.id, age: person.age, name: person.name,
-        specialization: person.specialization, data_type: person.class })
+                    specialization: person.specialization, data_type: person.class })
       else
         data.push({ id: person.id, age: person.age, name: person.name,
-        parent_permission: person.parent_permission, data_type: person.class })
+                    parent_permission: person.parent_permission, data_type: person.class })
       end
       File.write('people-data.json', JSON.generate(data))
     end
@@ -69,8 +75,8 @@ module DataStorage
   def save_rentals(rentals)
     data = []
     rentals.each do |rental|
-        data.push({ date: rental.date, person_id: rental.person.id, book_id: rental.book.id })
+      data.push({ date: rental.date, person_id: rental.person.id, book_id: rental.book.id })
     end
-      File.write('rental-data.json', JSON.generate(data))
+    File.write('rental-data.json', JSON.generate(data))
   end
 end

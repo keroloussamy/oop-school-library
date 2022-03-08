@@ -111,9 +111,9 @@ class App
     student_or_teacher = gets.chomp.to_i
     case student_or_teacher
     when 1
-      create_student()
+      create_student
     when 2
-      create_teacher()
+      create_teacher
     end
   end
 
