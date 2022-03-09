@@ -2,14 +2,17 @@ require './student'
 require './teacher'
 require './book'
 require './rental'
+require './data_storage'
 
 class App
   attr_accessor :books, :people, :rentals
 
+  include DataStorage
+
   def initialize
-    @books = []
-    @people = []
-    @rentals = []
+    @books = read_books
+    @people = read_people
+    @rentals = read_rentals(@books, @people)
   end
 
   def display_list
@@ -24,19 +27,19 @@ class App
       7- Exit"
   end
 
-  def display_books(books)
+  def display_books()
     books.each do |book|
       puts "Title: #{book.title}, Author: #{book.author}"
     end
   end
 
-  def display_people(people)
+  def display_people()
     people.each do |person|
       puts "[#{person.class.name}] Name: #{person.name}, ID: #{person.id}, Age:#{person.age}"
     end
   end
 
-  def create_student(people)
+  def create_student()
     print 'Age: '
     age = gets.chomp.to_i
     print 'Name: '
@@ -54,7 +57,7 @@ class App
     puts 'Person created successfully.'
   end
 
-  def create_teacher(people)
+  def create_teacher()
     print 'Age: '
     age = gets.chomp.to_i
     print 'Name: '
@@ -66,7 +69,7 @@ class App
     puts 'Person created successfully.'
   end
 
-  def create_book(books)
+  def create_book()
     print 'Title: '
     title = gets.chomp
     print 'Author: '
@@ -76,7 +79,7 @@ class App
     puts 'Book created successfully.'
   end
 
-  def create_rental(books, people, rentals)
+  def create_rental()
     puts 'Select a book  from the following list by number: '
     books.each_with_index do |book, index|
       puts "#{index}) Title: #{book.title}, Author: #{book.author}"
@@ -95,7 +98,7 @@ class App
     puts 'Rental created successfully.'
   end
 
-  def display_rental_by_person_id(rentals)
+  def display_rental_by_person_id()
     print 'Person ID: '
     person_id = gets.chomp.to_i
     rentals.each do |rent|
@@ -103,34 +106,40 @@ class App
     end
   end
 
-  def student_or_teacher(people)
+  def student_or_teacher()
     puts 'Do you want to create a student (1) or a teacher (2)? [Input a number]: '
     student_or_teacher = gets.chomp.to_i
     case student_or_teacher
     when 1
-      create_student(people)
+      create_student
     when 2
-      create_teacher(people)
+      create_teacher
     end
   end
 
   def switch_options(option)
     case option
     when 1
-      display_books(books)
+      display_books
     when 2
-      display_people(people)
+      display_people
     when 3
-      student_or_teacher(people)
+      student_or_teacher
     when 4
-      create_book(books)
+      create_book
     when 5
-      create_rental(books, people, rentals)
+      create_rental
     when 6
-      display_rental_by_person_id(rentals)
+      display_rental_by_person_id
     else
       puts 'Not an option'
     end
+  end
+
+  def save_data()
+    save_books(@books)
+    save_people(@people)
+    save_rentals(@rentals)
   end
 
   def switch_case
@@ -141,5 +150,6 @@ class App
 
       switch_options(option)
     end
+    save_data
   end
 end
